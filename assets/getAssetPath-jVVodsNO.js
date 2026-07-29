@@ -1,0 +1,1 @@
+const e=t=>{if(!t)return"";if(t.startsWith("http://")||t.startsWith("https://")||t.startsWith("data:"))return t;const s="/Portfolio2026/",r=t.startsWith("/")?t.slice(1):t;return s.endsWith("/")?`${s}${r}`:`${s}/${r}`};export{e as g};
