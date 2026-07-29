@@ -14,14 +14,13 @@ import {
 
 const textureLoader = new THREE.TextureLoader();
 const imageUrls = [
-  "/images/react2.webp",
-  "/images/next2.webp",
-  "/images/node2.webp",
-  "/images/express.webp",
-  "/images/mongo.webp",
-  "/images/mysql.webp",
-  "/images/typescript.webp",
-  "/images/javascript.webp",
+  "/images/skills/after-effects.png",
+  "/images/skills/creative-cloud.png",
+  "/images/skills/photoshop.png",
+  "/images/skills/davinci.png",
+  "/images/skills/lightroom.png",
+  "/images/skills/xd.png",
+  "/images/skills/premiere.png",
 ];
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
@@ -51,13 +50,22 @@ function SphereGeo({
   useFrame((_state, delta) => {
     if (!isActive) return;
     delta = Math.min(0.1, delta);
+    const translation = api.current?.translation();
+    if (!translation) return;
+
+    // Apply downward impulse if ball gets too close to the top boundary
+    let yForce = -150 * delta * scale;
+    if (translation.y > 3.5) {
+      yForce = -350 * delta * scale; // Stronger downward bounce
+    }
+
     const impulse = vec
-      .copy(api.current!.translation())
+      .copy(translation)
       .normalize()
       .multiply(
         new THREE.Vector3(
           -50 * delta * scale,
-          -150 * delta * scale,
+          yForce,
           -50 * delta * scale
         )
       );
@@ -70,7 +78,7 @@ function SphereGeo({
       linearDamping={0.75}
       angularDamping={0.15}
       friction={0.2}
-      position={[r(20), r(20) - 25, r(20) - 10]}
+      position={[r(18), Math.min(r(15) - 15, 2), r(15) - 10]}
       ref={api}
       colliders={false}
     >
@@ -102,10 +110,11 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 
   useFrame(({ pointer, viewport }) => {
     if (!isActive) return;
+    const clampedY = Math.min((pointer.y * viewport.height) / 2, (viewport.height / 2) - 2.5);
     const targetVec = vec.lerp(
       new THREE.Vector3(
         (pointer.x * viewport.width) / 2,
-        (pointer.y * viewport.height) / 2,
+        clampedY,
         0
       ),
       0.2
@@ -177,7 +186,7 @@ const TechStack = () => {
       <Canvas
         shadows
         gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
-        camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
+        camera={{ position: [0, 0, 22], fov: 35, near: 1, far: 100 }}
         onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
         className="tech-canvas"
       >

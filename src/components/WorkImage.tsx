@@ -6,6 +6,7 @@ interface Props {
   alt?: string;
   video?: string;
   link?: string;
+  isVertical?: boolean;
 }
 
 function getVimeoId(url?: string) {
@@ -23,7 +24,7 @@ const WorkImage = (props: Props) => {
   const vimeoId = getVimeoId(props.link);
 
   useEffect(() => {
-    if (vimeoId) {
+    if (vimeoId && props.image === "/images/placeholder.webp") {
       fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}`)
         .then((res) => res.json())
         .then((data) => {
@@ -32,8 +33,10 @@ const WorkImage = (props: Props) => {
           }
         })
         .catch((err) => console.error(err));
+    } else {
+      setThumbnail(props.image);
     }
-  }, [vimeoId]);
+  }, [vimeoId, props.image]);
 
   const handleMouseEnter = async () => {
     if (props.video) {
@@ -56,27 +59,33 @@ const WorkImage = (props: Props) => {
     }
   };
 
+  const aspectRatio = props.isVertical ? "9 / 16" : "16 / 9";
+
   return (
-    <div className="work-image">
+    <div className={`work-image ${props.isVertical ? "work-image-vertical" : ""}`}>
       <div
         className="work-image-in"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsVideo(false)}
+        style={{
+          maxWidth: props.isVertical ? "172px" : "100%",
+          maxHeight: props.isVertical ? "305px" : "none",
+          margin: props.isVertical ? "0 auto" : "0",
+        }}
       >
         {isPlayingInline && vimeoId ? (
           <div
             style={{
               position: "relative",
               width: "100%",
-              minHeight: "260px",
-              aspectRatio: "16 / 9",
-              borderRadius: "8px",
+              aspectRatio: aspectRatio,
+              borderRadius: "20px",
               overflow: "hidden",
               background: "#000",
             }}
           >
             <iframe
-              src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&app_id=122963`}
+              src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&app_id=122963&title=0&byline=0&portrait=0`}
               width="100%"
               height="100%"
               frameBorder="0"
@@ -90,7 +99,9 @@ const WorkImage = (props: Props) => {
                 width: "100%",
                 height: "100%",
                 border: "none",
-                borderRadius: "8px",
+                borderRadius: "20px",
+                transform: "scale(1.08)",
+                transformOrigin: "center center",
                 zIndex: 10,
               }}
               title={props.alt || "Vimeo Video Player"}
@@ -136,7 +147,11 @@ const WorkImage = (props: Props) => {
                 {vimeoId ? <MdPlayArrow /> : <MdArrowOutward />}
               </div>
             )}
-            <img src={thumbnail} alt={props.alt || "Project Thumbnail"} />
+            <img
+              src={thumbnail}
+              alt={props.alt || "Project Thumbnail"}
+              style={{ aspectRatio: aspectRatio }}
+            />
             {isVideo && <video src={video} autoPlay muted playsInline loop></video>}
           </a>
         )}

@@ -14,41 +14,49 @@ const clientsData: Client[] = [
     id: 1,
     name: "State Street",
     category: "Financial Services",
+    logo: "/images/clients/state-street.jpg",
   },
   {
     id: 2,
     name: "National Geographic",
     category: "Documentary & Broadcast",
+    logo: "/images/clients/nat-geo.jpg",
   },
   {
     id: 3,
     name: "Tata Steel",
     category: "Industrial & Corporate",
+    logo: "/images/clients/tata.jpg",
   },
   {
     id: 4,
     name: "Narayana GTET",
     category: "EdTech Platform",
+    logo: "/images/clients/narayana.jpg",
   },
   {
     id: 5,
     name: "Creative Agencies",
     category: "Commercials & Media",
+    logo: "/images/clients/creative-agencies.jpg",
   },
   {
     id: 6,
     name: "Adobe",
     category: "Generative AI & Tools",
+    logo: "/images/clients/adobe.png",
   },
   {
     id: 7,
     name: "Google",
     category: "Search & Tech",
+    logo: "/images/clients/google.png",
   },
   {
     id: 8,
     name: "Uber",
     category: "Mobility & Platform",
+    logo: "/images/clients/uber.png",
   },
 ];
 
@@ -84,7 +92,13 @@ const Clients = () => {
                   <img
                     src={client.logo}
                     alt={client.name}
-                    className="client-logo-img"
+                    className={`client-logo-img ${
+                      client.name === "Adobe"
+                        ? "client-logo-adobe"
+                        : client.name === "Google"
+                        ? "client-logo-zoom"
+                        : ""
+                    }`}
                   />
                 ) : (
                   /* Placeholder SVG Logo Icon - Replace with <img> or custom SVG */

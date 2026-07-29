@@ -61,7 +61,7 @@ const Work = () => {
               title: "Nat Geo Documentary",
               category: "Wildlife & Narrative Film",
               tools: "Premiere Pro, DaVinci Resolve, Audition",
-              image: "/images/placeholder.webp",
+              image: "/images/work/nat-geo-ocean.jpg",
               link: "https://vimeo.com/1062408945?share=copy&fl=sv&fe=ci",
             },
             {
@@ -69,38 +69,73 @@ const Work = () => {
               title: "Global Financial Series",
               category: "State Street Corporate Video",
               tools: "Premiere Pro, After Effects, Generative AI",
-              image: "/images/placeholder.webp",
+              image: "/images/work/etf-markets.jpg",
+              link: "https://vimeo.com/1202710021?share=copy&fl=sv&fe=ci",
             },
             {
               id: "03",
-              title: "3D EdTech Explainers",
-              category: "Narayana Learning App",
-              tools: "Blender, After Effects, Cinema 4D",
-              image: "/images/placeholder.webp",
+              title: "Creative Motion Series",
+              category: "Creative Agency",
+              tools: "After Effects, Motion Systems, Animation",
+              image: "/images/work/creative-marketing.jpg",
+              link: "https://vimeo.com/1145167686?share=copy&fl=sv&fe=ci",
             },
             {
               id: "04",
-              title: "Industrial Safety & CSR",
-              category: "Tata Steel Brand Narratives",
+              title: "Social Aware Message",
+              category: "Tata Steel Campaigns",
               tools: "Premiere Pro, After Effects, Photoshop",
               image: "/images/placeholder.webp",
+              link: "https://vimeo.com/1203030791?share=copy&fl=sv&fe=ci",
             },
             {
               id: "05",
-              title: "AI Motion Campaign",
+              title: "Generative AI Filmmaking",
               category: "Generative AI Video Workflows",
-              tools: "Adobe Firefly, After Effects, Premiere Pro",
-              image: "/images/placeholder.webp",
+              tools: "AI Generative Video, After Effects, Premiere Pro",
+              image: "/images/work/ashes-protocol.jpg",
+              link: "https://vimeo.com/1124845883?share=copy&fl=sv&fe=ci",
             },
             {
               id: "06",
               title: "Feature Film & Web Series",
               category: "Eclectic Studios Broadcast",
-              tools: "DaVinci Resolve, Multi-Cam Editing, Audition",
+              tools: "Adobe Premiere Pro, Multi-Cam Editing",
+              image: "/images/work/dhurandhar.jpg",
+              link: "https://vimeo.com/1184003292?share=copy&fl=sv&fe=ci",
+            },
+            {
+              id: "07",
+              title: "Uber Promo Reel",
+              category: "Uber Brand Campaign",
+              tools: "After Effects, Premiere Pro, Mobile Specs",
+              image: "/images/work/uber-vertical.jpg",
+              link: "https://vimeo.com/1181611272?share=copy&fl=sv&fe=ci",
+              isVertical: true,
+            },
+            {
+              id: "08",
+              title: "Google Lens Promo",
+              category: "Google Product Video",
+              tools: "After Effects, Kinetic Typography, Firefly",
+              image: "/images/work/google-lens-vertical.jpg",
+              link: "https://vimeo.com/1181621502?share=copy&fl=sv&fe=ci",
+              isVertical: true,
+            },
+            {
+              id: "09",
+              title: "Car Commercial Reel",
+              category: "Automotive Motion Campaign",
+              tools: "After Effects, Color Grading, Audition",
               image: "/images/placeholder.webp",
+              link: "https://vimeo.com/1130793961?share=copy&fl=sv&fe=ci",
+              isVertical: true,
             },
           ].map((project) => (
-            <div className="work-box" key={project.id}>
+            <div
+              className={`work-box ${project.isVertical ? "work-box-vertical" : ""}`}
+              key={project.id}
+            >
               <div className="work-info">
                 <div className="work-title">
                   <h3>{project.id}</h3>
@@ -117,6 +152,7 @@ const Work = () => {
                 image={project.image}
                 alt={project.title}
                 link={project.link}
+                isVertical={project.isVertical}
               />
             </div>
           ))}
