@@ -50,18 +50,22 @@
   display: flex;
   width: 40%;
   justify-content: space-between;
-  gap: 50px;
+  align-items: flex-start;
+  gap: 30px;
 }
 .career-info h3 {
   font-size: 48px;
   margin: 0;
   font-weight: 500;
-  line-height: 45px;
+  line-height: 1;
+  text-align: right;
+  min-width: 110px;
+  flex-shrink: 0;
 }
 
 .career-info h4 {
-  font-size: 33px;
-  line-height: 30px;
+  font-size: 28px;
+  line-height: 1.2;
   letter-spacing: 0.8px;
   font-weight: 500;
   margin: 0;
@@ -138,7 +142,7 @@
   .career-info h4 {
     font-size: 22px;
     line-height: 24px;
-    width: 180px;
+    width: auto;
   }
   .career-info h5 {
     font-size: 17px;

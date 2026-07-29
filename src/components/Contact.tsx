@@ -10,29 +10,24 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Email</h4>
             <p>
-              <a href="mailto:example@mail.com" data-cursor="disable">
-                example@mail.com
+              <a href="mailto:rupambor8@gmail.com" data-cursor="disable">
+                rupambor8@gmail.com
               </a>
             </p>
-            <h4>Phone</h4>
+            <h4>Phone &amp; Location</h4>
             <p>
-              <a href="tel:+9199999999" data-cursor="disable">
-                +91 99999 99999
+              <a href="tel:+917003769208" data-cursor="disable">
+                +91-7003769208
               </a>
+            </p>
+            <p style={{ color: "#adacac", fontSize: "14px", marginTop: "2px" }}>
+              Hyderabad, India
             </p>
           </div>
           <div className="contact-box">
-            <h4>Social</h4>
+            <h4>Social &amp; Professional</h4>
             <a
-              href="https://github.com"
-              target="_blank"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Github <MdArrowOutward />
-            </a>
-            <a
-              href="https://www.linkedin.com"
+              href="https://linkedin.com/in/rupam-bor-5069b2196"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
@@ -40,28 +35,20 @@ const Contact = () => {
               Linkedin <MdArrowOutward />
             </a>
             <a
-              href="https://x.com"
+              href="mailto:rupambor8@gmail.com"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
             >
-              Twitter <MdArrowOutward />
-            </a>
-            <a
-              href="https://www.instagram.com"
-              target="_blank"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Instagram <MdArrowOutward />
+              Email <MdArrowOutward />
             </a>
           </div>
           <div className="contact-box">
             <h2>
-              Designed and Developed <br /> by <span>Moncy Yohannan</span>
+              Video Producer &amp; <br /> Motion Graphics Specialist <span>Rupam Bor</span>
             </h2>
             <h5>
-              <MdCopyright /> 2024
+              <MdCopyright /> 2026
             </h5>
           </div>
         </div>

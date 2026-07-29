@@ -35,9 +35,13 @@ export function initialFX() {
 
   let TextProps = { type: "chars,lines", linesClass: "split-h2" };
 
-  var landingText2 = new SplitText(".landing-h2-info", TextProps);
+  var landingTextProducer = new SplitText(".landing-h2-info", TextProps); // Pair A Line 2: Producer
+  var landingTextSpecialist = new SplitText(".landing-h2-info-1", TextProps); // Pair B Line 2: Specialist
+  var landingTextVideo = new SplitText(".landing-h2-1", TextProps); // Pair A Line 1: Video
+  var landingTextMotion = new SplitText(".landing-h2-2", TextProps); // Pair B Line 1: Motion Graphics
+
   gsap.fromTo(
-    landingText2.chars,
+    [...landingTextVideo.chars, ...landingTextProducer.chars],
     { opacity: 0, y: 80, filter: "blur(5px)" },
     {
       opacity: 1,
@@ -72,65 +76,78 @@ export function initialFX() {
     }
   );
 
-  var landingText3 = new SplitText(".landing-h2-info-1", TextProps);
-  var landingText4 = new SplitText(".landing-h2-1", TextProps);
-  var landingText5 = new SplitText(".landing-h2-2", TextProps);
+  // Set Pair B initially hidden
+  gsap.set([...landingTextMotion.chars, ...landingTextSpecialist.chars], {
+    opacity: 0,
+    y: 80,
+  });
 
-  LoopText(landingText2, landingText3);
-  LoopText(landingText4, landingText5);
+  LoopPairs(
+    landingTextVideo,
+    landingTextProducer,
+    landingTextMotion,
+    landingTextSpecialist
+  );
 }
 
-function LoopText(Text1: SplitText, Text2: SplitText) {
+function LoopPairs(
+  line1A: SplitText,
+  line2A: SplitText,
+  line1B: SplitText,
+  line2B: SplitText
+) {
   var tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
-  const delay = 4;
-  const delay2 = delay * 2 + 1;
+  const displayTime = 3.5; // time each title remains visible
 
-  tl.fromTo(
-    Text2.chars,
-    { opacity: 0, y: 80 },
+  // Transition Pair A (Video Producer) -> Pair B (Motion Graphics Specialist)
+  tl.to(
+    [...line1A.chars, ...line2A.chars],
     {
-      opacity: 1,
-      duration: 1.2,
+      y: -80,
+      opacity: 0,
+      duration: 1.0,
       ease: "power3.inOut",
-      y: 0,
-      stagger: 0.1,
-      delay: delay,
+      stagger: 0.02,
     },
-    0
-  )
-    .fromTo(
-      Text1.chars,
-      { y: 80 },
-      {
-        duration: 1.2,
-        ease: "power3.inOut",
-        y: 0,
-        stagger: 0.1,
-        delay: delay2,
-      },
-      1
-    )
-    .fromTo(
-      Text1.chars,
-      { y: 0 },
-      {
-        y: -80,
-        duration: 1.2,
-        ease: "power3.inOut",
-        stagger: 0.1,
-        delay: delay,
-      },
-      0
-    )
-    .to(
-      Text2.chars,
-      {
-        y: -80,
-        duration: 1.2,
-        ease: "power3.inOut",
-        stagger: 0.1,
-        delay: delay2,
-      },
-      1
-    );
+    displayTime
+  );
+
+  tl.to(
+    [...line1B.chars, ...line2B.chars],
+    {
+      y: 0,
+      opacity: 1,
+      duration: 1.0,
+      ease: "power3.inOut",
+      stagger: 0.02,
+    },
+    displayTime + 0.1
+  );
+
+  // Transition Pair B (Motion Graphics Specialist) -> Pair A (Video Producer)
+  const phase2Time = displayTime * 2 + 1.2;
+
+  tl.to(
+    [...line1B.chars, ...line2B.chars],
+    {
+      y: -80,
+      opacity: 0,
+      duration: 1.0,
+      ease: "power3.inOut",
+      stagger: 0.02,
+    },
+    phase2Time
+  );
+
+  tl.to(
+    [...line1A.chars, ...line2A.chars],
+    {
+      y: 0,
+      opacity: 1,
+      duration: 1.0,
+      ease: "power3.inOut",
+      stagger: 0.02,
+    },
+    phase2Time + 0.1
+  );
 }
