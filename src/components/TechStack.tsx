@@ -11,16 +11,17 @@ import {
   CylinderCollider,
   RapierRigidBody,
 } from "@react-three/rapier";
+import { getAssetPath } from "./utils/getAssetPath";
 
 const textureLoader = new THREE.TextureLoader();
 const imageUrls = [
-  "/images/skills/after-effects.png",
-  "/images/skills/creative-cloud.png",
-  "/images/skills/photoshop.png",
-  "/images/skills/davinci.png",
-  "/images/skills/lightroom.png",
-  "/images/skills/xd.png",
-  "/images/skills/premiere.png",
+  getAssetPath("/images/skills/after-effects.png"),
+  getAssetPath("/images/skills/creative-cloud.png"),
+  getAssetPath("/images/skills/photoshop.png"),
+  getAssetPath("/images/skills/davinci.png"),
+  getAssetPath("/images/skills/lightroom.png"),
+  getAssetPath("/images/skills/xd.png"),
+  getAssetPath("/images/skills/premiere.png"),
 ];
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
@@ -212,7 +213,7 @@ const TechStack = () => {
           ))}
         </Physics>
         <Environment
-          files="/models/char_enviorment.hdr"
+          files={getAssetPath("/models/char_enviorment.hdr")}
           environmentIntensity={0.5}
           environmentRotation={[0, 4, 2]}
         />

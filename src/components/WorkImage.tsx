@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { MdArrowOutward, MdPlayArrow, MdClose } from "react-icons/md";
+import { getAssetPath } from "./utils/getAssetPath";
 
 interface Props {
   image: string;
@@ -24,7 +25,7 @@ const WorkImage = (props: Props) => {
   const vimeoId = getVimeoId(props.link);
 
   useEffect(() => {
-    if (vimeoId && props.image === "/images/placeholder.webp") {
+    if (vimeoId && (props.image === "/images/placeholder.webp" || props.image === getAssetPath("/images/placeholder.webp"))) {
       fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}`)
         .then((res) => res.json())
         .then((data) => {

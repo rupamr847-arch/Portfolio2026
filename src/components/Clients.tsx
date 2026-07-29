@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles/Clients.css";
+import { getAssetPath } from "./utils/getAssetPath";
 
 interface Client {
   id: number;
@@ -14,49 +15,49 @@ const clientsData: Client[] = [
     id: 1,
     name: "State Street",
     category: "Financial Services",
-    logo: "/images/clients/state-street.jpg",
+    logo: getAssetPath("/images/clients/state-street.jpg"),
   },
   {
     id: 2,
     name: "National Geographic",
     category: "Documentary & Broadcast",
-    logo: "/images/clients/nat-geo.jpg",
+    logo: getAssetPath("/images/clients/nat-geo.jpg"),
   },
   {
     id: 3,
     name: "Tata Steel",
     category: "Industrial & Corporate",
-    logo: "/images/clients/tata.jpg",
+    logo: getAssetPath("/images/clients/tata.jpg"),
   },
   {
     id: 4,
     name: "Narayana GTET",
     category: "EdTech Platform",
-    logo: "/images/clients/narayana.jpg",
+    logo: getAssetPath("/images/clients/narayana.jpg"),
   },
   {
     id: 5,
     name: "Creative Agencies",
     category: "Commercials & Media",
-    logo: "/images/clients/creative-agencies.jpg",
+    logo: getAssetPath("/images/clients/creative-agencies.jpg"),
   },
   {
     id: 6,
     name: "Adobe",
     category: "Generative AI & Tools",
-    logo: "/images/clients/adobe.png",
+    logo: getAssetPath("/images/clients/adobe.png"),
   },
   {
     id: 7,
     name: "Google",
     category: "Search & Tech",
-    logo: "/images/clients/google.png",
+    logo: getAssetPath("/images/clients/google.png"),
   },
   {
     id: 8,
     name: "Uber",
     category: "Mobility & Platform",
-    logo: "/images/clients/uber.png",
+    logo: getAssetPath("/images/clients/uber.png"),
   },
 ];
 

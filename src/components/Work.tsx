@@ -3,6 +3,7 @@ import WorkImage from "./WorkImage";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { getAssetPath } from "./utils/getAssetPath";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -11,16 +12,14 @@ const Work = () => {
     let translateX: number = 0;
 
     function setTranslateX() {
-      const box = document.getElementsByClassName("work-box");
-      if (!box.length) return;
-      const rectLeft = document
-        .querySelector(".work-container")!
-        .getBoundingClientRect().left;
-      const rect = box[0].getBoundingClientRect();
-      const parentWidth = box[0].parentElement!.getBoundingClientRect().width;
-      let padding: number =
-        parseInt(window.getComputedStyle(box[0]).padding) / 2;
-      translateX = rect.width * box.length - (rectLeft + parentWidth) + padding;
+      const boxes = document.querySelectorAll(".work-box");
+      const rect = boxes[0]?.getBoundingClientRect();
+      const parentRect = boxes[0]?.parentElement?.getBoundingClientRect();
+      if (rect && parentRect) {
+        let padding = parseInt(window.getComputedStyle(boxes[0]).padding) / 2;
+        translateX =
+          rect.width * boxes.length - (parentRect.width - padding * 2);
+      }
     }
 
     setTranslateX();
@@ -29,11 +28,12 @@ const Work = () => {
       scrollTrigger: {
         trigger: ".work-section",
         start: "top top",
-        end: `+=${translateX}`, // Use actual scroll width
-        scrub: true,
+        end: "bottom top",
+        scrub: 1.5,
         pin: true,
-        pinType: !ScrollTrigger.isTouch ? "transform" : "fixed",
-        id: "work",
+        pinSpacing: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
       },
     });
 
@@ -41,12 +41,6 @@ const Work = () => {
       x: -translateX,
       ease: "none",
     });
-
-    // Clean up (optional, good practice)
-    return () => {
-      timeline.kill();
-      ScrollTrigger.getById("work")?.kill();
-    };
   }, []);
   return (
     <div className="work-section" id="work">
@@ -61,7 +55,7 @@ const Work = () => {
               title: "Nat Geo Documentary",
               category: "Wildlife & Narrative Film",
               tools: "Premiere Pro, DaVinci Resolve, Audition",
-              image: "/images/work/nat-geo-ocean.jpg",
+              image: getAssetPath("/images/work/nat-geo-ocean.jpg"),
               link: "https://vimeo.com/1062408945?share=copy&fl=sv&fe=ci",
             },
             {
@@ -69,7 +63,7 @@ const Work = () => {
               title: "Global Financial Series",
               category: "State Street Corporate Video",
               tools: "Premiere Pro, After Effects, Generative AI",
-              image: "/images/work/etf-markets.jpg",
+              image: getAssetPath("/images/work/etf-markets.jpg"),
               link: "https://vimeo.com/1202710021?share=copy&fl=sv&fe=ci",
             },
             {
@@ -77,7 +71,7 @@ const Work = () => {
               title: "Creative Motion Series",
               category: "Creative Agency",
               tools: "After Effects, Motion Systems, Animation",
-              image: "/images/work/creative-marketing.jpg",
+              image: getAssetPath("/images/work/creative-marketing.jpg"),
               link: "https://vimeo.com/1145167686?share=copy&fl=sv&fe=ci",
             },
             {
@@ -85,7 +79,7 @@ const Work = () => {
               title: "Social Aware Message",
               category: "Tata Steel Campaigns",
               tools: "Premiere Pro, After Effects, Photoshop",
-              image: "/images/placeholder.webp",
+              image: getAssetPath("/images/placeholder.webp"),
               link: "https://vimeo.com/1203030791?share=copy&fl=sv&fe=ci",
             },
             {
@@ -93,7 +87,7 @@ const Work = () => {
               title: "Generative AI Filmmaking",
               category: "Generative AI Video Workflows",
               tools: "AI Generative Video, After Effects, Premiere Pro",
-              image: "/images/work/ashes-protocol.jpg",
+              image: getAssetPath("/images/work/ashes-protocol.jpg"),
               link: "https://vimeo.com/1124845883?share=copy&fl=sv&fe=ci",
             },
             {
@@ -101,7 +95,7 @@ const Work = () => {
               title: "Feature Film & Web Series",
               category: "Eclectic Studios Broadcast",
               tools: "Adobe Premiere Pro, Multi-Cam Editing",
-              image: "/images/work/dhurandhar.jpg",
+              image: getAssetPath("/images/work/dhurandhar.jpg"),
               link: "https://vimeo.com/1184003292?share=copy&fl=sv&fe=ci",
             },
             {
@@ -109,7 +103,7 @@ const Work = () => {
               title: "Uber Promo Reel",
               category: "Uber Brand Campaign",
               tools: "After Effects, Premiere Pro, Mobile Specs",
-              image: "/images/work/uber-vertical.jpg",
+              image: getAssetPath("/images/work/uber-vertical.jpg"),
               link: "https://vimeo.com/1181611272?share=copy&fl=sv&fe=ci",
               isVertical: true,
             },
@@ -118,7 +112,7 @@ const Work = () => {
               title: "Google Lens Promo",
               category: "Google Product Video",
               tools: "After Effects, Kinetic Typography, Firefly",
-              image: "/images/work/google-lens-vertical.jpg",
+              image: getAssetPath("/images/work/google-lens-vertical.jpg"),
               link: "https://vimeo.com/1181621502?share=copy&fl=sv&fe=ci",
               isVertical: true,
             },
@@ -127,7 +121,7 @@ const Work = () => {
               title: "Car Commercial Reel",
               category: "Automotive Motion Campaign",
               tools: "After Effects, Color Grading, Audition",
-              image: "/images/placeholder.webp",
+              image: getAssetPath("/images/placeholder.webp"),
               link: "https://vimeo.com/1130793961?share=copy&fl=sv&fe=ci",
               isVertical: true,
             },
